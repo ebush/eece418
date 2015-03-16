@@ -65,10 +65,10 @@
 			<div id='calendar'></div>
 		</div>
 		<div class="col-xs-3">
-				<ul class="list-group"  id="datelist">
-				  
-				
-				</ul>
+				<div class="btn-group-vertical" role="group" aria-label="...">
+				  <button type="button" class="btn btn-default" onclick="alertImport()">Import From Google</button>
+				  <button type="button" class="btn btn-default" onclick="alertImport()">Import From Outlook</button>
+				</div>
 		</div>
 	</div>
 	<div class="row">
@@ -91,7 +91,7 @@
 	<div class ="row">
   <div class="col-xs-6"><p class="text-center"><a class="btn btn-primary btn-lg" href="availability.html" role="button">Back</a></p></div>
   
-  <div class="col-xs-6"><p class="text-center"><a class="btn btn-primary btn-lg" href="" role="button">Next</a></p></div>
+  <div class="col-xs-6"><p class="text-center"><a class="btn btn-primary btn-lg" href="invitepeople.html" role="button">Next</a></p></div>
 	</div>
 	
 </body>
@@ -123,6 +123,9 @@ $(document).ready(function(){
 
 
 <script>
+function alertImport(){
+	alert("IMPORT DATES FROM CALENDAR");
+}
 
 function removeDate(element){
 	console.log($(element).attr("name"));
