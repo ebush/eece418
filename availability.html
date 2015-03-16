@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Collaborative Meeting Finder</title>
+<link rel="stylesheet" href="style.css">
+<script src="jquery-2.1.3.min.js"></script>
+
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+
+
+<link rel="stylesheet" href="responsive-checkout-progress-bar/css/style.css">
+</head>
+<body>
+
+<nav class="navbar navbar-inverse navbar-static-top">
+   <div class="navbar-header">
+      <a class="navbar-brand" href="#">Junction</a>
+    </div>
+</nav>
+	
+	<div class = "row">
+		<div class = "col-xs-2"></div>
+		<div class ="col-xs-8">
+			<div class="checkout-wrap">
+		  <ul class="checkout-bar">
+		
+		    <li class="first visited">
+		      <a href="#">Event Details</a>
+		    </li>
+		
+		    <li class="previously visited">Vote on Location</li>
+		
+		    <li class="active">Add Availability</li>
+		
+		    <li class="next">Invite Participants</li>
+		
+		    <li class="">View Best Time!</li>
+		
+		  </ul>
+		  </div>
+		</div>
+		<div class = "col-xs-2"></div>
+	</div>
+	
+	<div class="row">&nbsp;</div>
+	<div class="row">&nbsp;</div>
+	<div class="row">&nbsp;</div>
+	<div class="row">&nbsp;</div>
+	<div class="row">&nbsp;</div>
+	
+	  	
+	<h1 class="text-center">What days are you available?</h1>
+	<p class="text-center">You can select the times on the next screen.</p>
+	<div class="row">&nbsp;</div>
+
+	<div class="row">
+		<div class="col-xs-2"></div>
+		<div class="col-xs-5">
+			<div id='calendar'></div>
+		</div>
+		<div class="col-xs-3">
+				<ul class="list-group"  id="datelist">
+				  
+				
+				</ul>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-xs-2"></div>
+		<div class="col-xs-5">
+	
+				<a href="#" onclick="cannotattend()">Cannot Attend</a>
+				
+		</div>
+	</div>
+	
+
+	<form action='selecttimes.html' method="get" id="dates"></form>
+
+	
+
+  <div class="row">&nbsp;</div>
+	<div class="row">&nbsp;</div>
+
+ 
+	<div class ="row">
+  <div class="col-xs-6"><p class="text-center"><a class="btn btn-primary btn-lg" href="location.html" role="button">Back</a></p></div>
+  
+  <div class="col-xs-6"><p class="text-center"><a class="btn btn-primary btn-lg" href="#" onclick="submitForm()" role="button">Next</a></p></div>
+	</div>
+	
+</body>
+<script>
+$(document).ready(function(){
+	var i = 1;
+	
+	$(document).keypress(function(e) {
+
+    if(e.which == 13 && $("#Location0").val()!= "") {
+        console.log($("#Location0").val());
+        $("#locationlist").append("<div class=\"row\"> <label>" +
+		    		"<input type=\"radio\" name=\"optionsRadios\" id= \"optionsRadios"+i+" value=\"option"+i+" checked>"+
+		    		"  "+$("#Location0").val()+
+		    		"</label></div>");
+		    i = i + 1;
+    }
+   });
+
+});
+</script>
+
+
+<link href='fullcalendar-2.3.1/fullcalendar.min.css' rel='stylesheet' />
+<link href='fullcalendar-2.3.1/fullcalendar.print.css' rel='stylesheet' media='print' />
+<script src='http://momentjs.com/downloads/moment.js'></script>
+
+<script src='fullcalendar-2.3.1/fullcalendar.min.js'></script>
+
+
+<script>
+
+function removeDate(element){
+	console.log($(element).attr("name"));
+	var elemid = $(element).attr("name");
+	$("#"+elemid).remove();
+	var startdate = moment (elemid);
+	
+	$('#calendar').fullCalendar( 'removeEvents', function(event) {
+		console.log(event.start.format("YYYY-MM-DD") +" =? "+startdate.format("YYYY-MM-DD"));
+    if(event.start.format("YYYY-MM-DD")===startdate.format("YYYY-MM-DD")){
+    		
+        return true;
+    }
+  });	
+}
+
+function cannotattend(){
+	$('#calendar').fullCalendar('removeEvents');
+	
+	$("#datelist").empty();
+	$("#datelist").append("<li class=\"list-group-item\" id='cannotattend'>Unavailable For Any Day</li>");
+
+}
+
+function submitForm(){
+	console.log($("#dates").serialize());
+	if($("#cannotattend").length){
+		window.location.href = 'invitepeople.html';
+	}
+	else{
+		window.location.href = 'selecttimes.html?'+$("#dates").serialize();
+	}
+	
+}
+
+	$(document).ready(function() {
+		
+		$('#calendar').fullCalendar({
+			header: {
+				left: 'prev,next today',
+				center: 'title'
+			},
+			selectable: true,
+			selectHelper: true,
+			select: function(start, end) {
+				var title = "Available";
+				//console.log($('#calendar').fullCalendar('clientEvents'));
+				var eventData;
+				if (title) {
+					
+					
+					while (start.isBefore(end)){
+						var stringDate = start.format("MM-DD-YYYY");
+						eventData = {
+							title: title,
+							start: start,
+							end: start
+						};
+						
+						$('#calendar').fullCalendar('renderEvent', eventData, true); // stick? = true
+						
+						$("#datelist").append("<li class=\"list-group-item\" id='"+start.format("YYYY-MM-DD")+"'>"+start.format("MMMM D, YYYY")+"<a href='#' onclick='removeDate(this)' name='"+start.format("YYYY-MM-DD")+"'> <span class=\"glyphicon glyphicon-remove\" aria-hidden=\"true\"></span></a></li>");
+						start.add(1, 'days');
+						
+						$("#dates").append("<input type='text' name='date' style='display: none;' value="+start.format("YYYY-MM-DD")+">");
+						
+						$("#cannotattend").remove();
+					}
+					
+					console.log(start);
+				}
+				$('#calendar').fullCalendar('unselect');
+			},
+			editable: true 
+      
+		});
+		
+	});
+
+
+
+</script>
+<style>
+
+	body {
+		margin: 40px 10px;
+		padding: 0;
+		font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
+		font-size: 14px;
+	}
+
+	#calendar {
+		max-width: 900px;
+		margin: 0 auto;
+	}
+
+</style>
+
+</html>
