@@ -112,6 +112,19 @@
 		  	
 	  	</div>
   </div>
+  
+  <div class="row">
+  	<div class="col-xs-2"></div>
+  	<div class="col-xs-4">
+  		<div class="col-xs-6">
+	  		<h4>5/6 Participated</h4>
+	  		<p>Still waiting for 1 more</p>
+  		</div>
+		  <div class="col-xs-6">
+			  <a class="btn btn-primary" onclick="sendReminder()" role="button">Send Reminder</a>
+		  </div>
+  	</div>
+  </div>
 
   <div class="row">&nbsp;</div>
 	<div class="row">&nbsp;</div>
@@ -124,6 +137,10 @@
 </body>
 
 <script>
+function sendReminder(){
+	alert("Reminder Sent!");
+}
+
 $(document).ready(function(){
 var data = {
     labels: ["March 18, 2015", "March 19, 2015", "March 20, 2015", "March 21, 2015", "March 23, 2015", "March 27, 2015"],

@@ -1,3 +1,8 @@
 html,body {height:100%;}
 .jumbotron {height:100%;}
 
+#locationlist{
+	margin-left: 30px;
+	margin-bottom: 10px;
+}
+

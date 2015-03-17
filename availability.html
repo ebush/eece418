@@ -76,7 +76,7 @@
 		<div class="col-xs-2"></div>
 		<div class="col-xs-5">
 	
-				<a href="#" onclick="cannotattend()">Cannot Attend</a>
+				<a onclick="cannotattend()">Cannot Attend</a>
 				
 		</div>
 	</div>
@@ -165,7 +165,8 @@ function submitForm(){
 		$('#calendar').fullCalendar({
 			header: {
 				left: 'prev,next today',
-				center: 'title'
+				center: 'title',
+				right: null
 			},
 			selectable: true,
 			selectHelper: true,
@@ -186,7 +187,7 @@ function submitForm(){
 						
 						$('#calendar').fullCalendar('renderEvent', eventData, true); // stick? = true
 						
-						$("#datelist").append("<li class=\"list-group-item\" id='"+start.format("YYYY-MM-DD")+"'>"+start.format("MMMM D, YYYY")+"<a href='#' onclick='removeDate(this)' name='"+start.format("YYYY-MM-DD")+"'> <span class=\"glyphicon glyphicon-remove\" aria-hidden=\"true\"></span></a></li>");
+						$("#datelist").append("<li class=\"list-group-item\" id='"+start.format("YYYY-MM-DD")+"'>"+start.format("MMMM D, YYYY")+"<a onclick='removeDate(this)' name='"+start.format("YYYY-MM-DD")+"'> <span class=\"glyphicon glyphicon-remove\" aria-hidden=\"true\"></span></a></li>");
 						start.add(1, 'days');
 						
 						$("#dates").append("<input type='text' name='date' style='display: none;' value="+start.format("YYYY-MM-DD")+">");

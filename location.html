@@ -70,7 +70,7 @@
   		<div class="col-xs-4">
   		
 		  <div class="input-group">
-			  <span class="input-group-addon" id="basic-addon1"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></span>
+			  <span class="input-group-addon" id="basic-addon1"><a onclick="updateList()"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a></span>
 			  <input type="text" class="form-control" placeholder="Location" id ="Location0" aria-describedby="basic-addon1">
 			</div>
   		
@@ -88,20 +88,27 @@
 	</div>
 </body>
 <script>
-$(document).ready(function(){
 	var i = 1;
+	
+function updateList(){
+		console.log($("#Location0").val());
+        $("#locationlist").append("<div class=\"row\"> <label>" +
+		    		"<input type=\"radio\" style='margin-right: 5px;' name=\"optionsRadios\" id= \"optionsRadios"+i+" value=\"option"+i+" checked>"+
+		    		"  "+$("#Location0").val()+
+		    		"</label></div>");
+		    i = i + 1;
+	}
+	
+$(document).ready(function(){
+
 	
 	$(document).keypress(function(e) {
 
     if(e.which == 13 && $("#Location0").val()!= "") {
-        console.log($("#Location0").val());
-        $("#locationlist").append("<div class=\"row\"> <label>" +
-		    		"<input type=\"radio\" name=\"optionsRadios\" id= \"optionsRadios"+i+" value=\"option"+i+" checked>"+
-		    		"  "+$("#Location0").val()+
-		    		"</label></div>");
-		    i = i + 1;
+        updateList();
     }
    });
+   
 
 });
 </script>
