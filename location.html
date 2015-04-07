@@ -91,25 +91,23 @@
 	var i = 1;
 	
 function updateList(){
+	if($("#Location0").val()!="") {
 		console.log($("#Location0").val());
         $("#locationlist").append("<div class=\"row\"> <label>" +
-		    		"<input type=\"radio\" style='margin-right: 5px;' name=\"optionsRadios\" id= \"optionsRadios"+i+" value=\"option"+i+" checked>"+
-		    		"  "+$("#Location0").val()+
-		    		"</label></div>");
-		    i = i + 1;
+    		"<input type=\"radio\" style='margin-right: 5px;' name=\"optionsRadios\" id= \"optionsRadios"+i+" value=\"option"+i+" checked>"+
+    		"  "+$("#Location0").val()+
+    		"</label></div>");
+	    i = i + 1;
 	}
+}
 	
 $(document).ready(function(){
-
-	
 	$(document).keypress(function(e) {
-
-    if(e.which == 13 && $("#Location0").val()!= "") {
-        updateList();
-    }
+	    if(e.which == 13 && $("#Location0").val()!= "") {
+	        updateList();
+	    }
    });
-   
-
 });
+
 </script>
 </html>
