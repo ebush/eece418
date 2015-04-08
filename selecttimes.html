@@ -116,23 +116,73 @@ $(document).ready(function(){
 
 <script>
 function alertImport(){
-	alert("IMPORT DATES FROM CALENDAR");
-	$('#calendar').fullCalendar('addEventSource', [
-        {
-            title  : 'event1',
-            start  : '2010-01-01'
-        },
-        {
-            title  : 'event2',
-            start  : '2010-01-05',
-            end    : '2010-01-07'
-        },
-        {
-            title  : 'event3',
-            start  : '2010-01-09T12:30:00',
-            allDay : false // will make the time show
-        }
-    ]);
+	alert("LOGIN TO CALENDAR");
+	
+	    var monthSource = new Object();
+	    monthSource.title = 'BUSY'; // this should be string
+	    monthSource.start = '2015-04-05T09:00:00';
+	    monthSource.end = '2015-04-05T10:00:00';	
+	    monthSource.editable = false;
+	    monthSource.color = "#C4C4C4";
+	
+	    var month = new Array();
+	    month[0] = monthSource;
+	    
+	    monthSource = new Object();
+	    monthSource.title = 'BUSY'; // this should be string
+	    monthSource.start = '2015-04-06T16:00:00';
+	    monthSource.end = '2015-04-06T17:00:00';	
+	    monthSource.editable = false;
+	    monthSource.color = "#C4C4C4";
+	
+	    month[1] = monthSource;
+	    
+	    monthSource = new Object();
+	    monthSource.title = 'BUSY'; // this should be string
+	    monthSource.start = '2015-04-07T11:00:00';
+	    monthSource.end = '2015-04-07T12:00:00';	
+	    monthSource.editable = false;
+	    monthSource.color = "#C4C4C4";
+	
+	    month[2] = monthSource;
+	    
+	    monthSource = new Object();
+	    monthSource.title = 'BUSY'; // this should be string
+	    monthSource.start = '2015-04-08T811:00:00';
+	    monthSource.end = '2015-04-08T12:00:00';	
+	    monthSource.editable = false;
+	    monthSource.color = "#C4C4C4";
+	
+	    month[3] = monthSource;
+	    
+	    monthSource = new Object();
+	    monthSource.title = 'BUSY'; // this should be string
+	    monthSource.start = '2015-04-08T13:00:00';
+	    monthSource.end = '2015-04-08T14:00:00';	
+	    monthSource.editable = false;
+	    monthSource.color = "#C4C4C4";
+	
+	    month[4] = monthSource;
+	    
+  	    monthSource = new Object();
+	    monthSource.title = 'BUSY'; // this should be string
+	    monthSource.start = '2015-04-10T12:00:00';
+	    monthSource.end = '2015-04-10T13:00:00';	
+	    monthSource.editable = false;
+	    monthSource.color = "#C4C4C4";
+	
+	    month[5] = monthSource;
+	    
+	    monthSource = new Object();
+	    monthSource.title = 'BUSY'; // this should be string
+	    monthSource.start = '2015-04-11T12:00:00';
+	    monthSource.end = '2015-04-11T13:00:00';	
+	    monthSource.editable = false;
+	    monthSource.color = "#C4C4C4";
+	
+	    month[6] = monthSource;
+	
+  	$('#calendar').fullCalendar('addEventSource', month);
 }
 
 function removeDate(element){
@@ -185,7 +235,12 @@ function GetURLParameters()
             titleFormat:"MMMM DD"
             // other view-specific options here
         }
-      },
+      },           eventClick: function(calEvent, jsEvent, view) {
+		console.log("eventClick");
+		console.log(calEvent._id);
+	       $('#calendar').fullCalendar( 'removeEvents', calEvent._id );
+
+    },
 			events: function(start, end, timezone, callback){
 				 var dates = GetURLParameters();
 				 //console.log(dates);
@@ -202,6 +257,7 @@ function GetURLParameters()
            }else{
 	           //$("#datelist").append("<li class=\"list-group-item\" id='"+entry[1]+"'>"+entry[1]+" - All Day"+"<a href='#' onclick='removeDate(this)' name='"+entry[1]+"'> <span class=\"glyphicon glyphicon-remove\" aria-hidden=\"true\"></span></a></li>");   
            }
+
 						
          });
          
